@@ -9,23 +9,141 @@ Desktop: 992px até 1200px
 Grandes telas: acima de 1200px
 */
 
-@media screen and (min-width: 768px) {
+@charset "UTF-8";
 
+/* ======================
+   Estratégia Mobile First
+   ====================== */
+
+/* Estilos base (para mobile) */
+i#burguer {
+    display: block;
+}
+
+menu {
+    display: none;
+}
+
+main {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+}
+
+/* ======================
+   Media Queries Aprimorados
+   ====================== */
+
+/* Dispositivos móveis grandes / Tablets pequenos (600px+) */
+@media screen and (min-width: 600px) {
+    main {
+        width: 90%;
+        margin: 0 auto;
+    }
+    
+    menu > ul > li > a {
+        padding: 15px;
+    }
+}
+
+/* Tablets (768px+) */
+@media screen and (min-width: 768px) {
     i#burguer {
         display: none;
     }
 
     menu {
         display: block;
+        text-align: center;
     }
 
     menu > ul > li {
         display: inline-block;
+        margin: 0 10px;
+    }
+
+    menu > ul > li > a {
+        border-top: none;
+        border-bottom: 2px solid var(--cor01);
+        transition: all 0.3s ease;
+    }
+
+    menu > ul > li > a:hover {
+        border-bottom-color: var(--cor00);
+        transform: translateY(-3px);
     }
 
     main {
-        width: 768px;
+        width: 750px; /* 768px - padding */
+        padding: 0;
     }
+}
 
+/* Desktop pequeno (992px+) */
+@media screen and (min-width: 992px) {
+    main {
+        width: 970px;
+    }
     
+    menu > ul > li {
+        margin: 0 15px;
+    }
+    
+    menu > ul > li > a {
+        padding: 20px 15px;
+        font-size: 1.1em;
+    }
+}
+
+/* Desktop grande (1200px+) */
+@media screen and (min-width: 1200px) {
+    main {
+        width: 1170px;
+    }
+    
+    header > h1 {
+        font-size: 3rem;
+    }
+    
+    menu > ul > li {
+        margin: 0 20px;
+    }
+}
+
+/* Telas muito grandes (1400px+) */
+@media screen and (min-width: 1400px) {
+    main {
+        width: 1370px;
+    }
+    
+    :root {
+        font-size: 18px;
+    }
+}
+
+/* ======================
+   Breakpoints Especiais
+   ====================== */
+
+/* Orientação paisagem em dispositivos móveis */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    menu > ul > li > a {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+}
+
+/* Dispositivos com hover (não touch) */
+@media (hover: hover) and (pointer: fine) {
+    menu > ul > li > a:hover {
+        background-color: var(--cor00);
+        color: black;
+    }
+}
+
+/* Telas de alta densidade (Retina) */
+@media 
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-resolution: 192dpi) {
+    /* Estilos específicos para telas Retina */
 }

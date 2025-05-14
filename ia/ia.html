@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../estilos/ia.css">
         <link rel="stylesheet" href="../estilos/style.css">
         <link rel="stylesheet" href="../estilos/media-query.css">
+        <link rel="stylesheet" href="../animation/animation.css">
 </head>
 <body>
     <div class="chatbot">
@@ -36,7 +37,7 @@
         </ul>
         <div class="chat-input">
           <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
-          <span id="send-btn" class="material-symbols-rounded">send</span>
+          <span><button id="send-btn" class="material-symbols-rounded">send</button></span>
         </div>
             </div>
       </main>
@@ -44,6 +45,7 @@
       <p>Criado por <a href="https://github.com/DevSpector" title="Spector" target="_blank">Eliel Andre de Queiroz.</a></p>
     </footer>
 <script src="../script/script.js"></script>
+<script src="script/animation.js"></script>
 <script>
   const text = "Dev.IA"; // Texto do título
         const typingText = document.getElementById("typing-text");

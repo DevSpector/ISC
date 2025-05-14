@@ -1,9 +1,10 @@
-@charset "UTF8";
+@charset "UTF-8";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* Remove highlight ao tocar em elementos */
 }
 
 :root {
@@ -13,105 +14,165 @@
   --cor03: #d8d2e1;
   --cor04: #e5c1bd;
   --texto: #222;
+  --borda-arredondada: 8px;
+  --sombra: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
 
 body, html {
   background-color: var(--cor04);
   color: var(--texto);
-  font-size: 1.2em;
+  font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; /* Fontes mais modernas */
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
+/* Header melhorado */
 header {
   background-color: var(--cor02);
   color: white;
   text-align: center;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--sombra);
 }
 
 header > h1 {
   color: var(--cor00);
-  font-size: 2.5rem;
-  padding: 10px;
+  font-size: clamp(1.8rem, 5vw, 2.5rem); /* Tamanho responsivo */
+  padding: 0.5rem;
   text-align: center;
+  font-weight: 700;
 }
 
 header > p {
-  margin-top: 1rem;
-  padding: 10px;
-  color: var(--cor04);
+  margin-top: 0.5rem;
+  padding: 0 1rem;
+  color: var(--cor03);
+  font-size: 1rem;
 }
 
+/* Menu hamburguer aprimorado */
 i#burguer {
-    background-color: var(--cor01);
-    color: white;
-    display: block;
-    text-align: center;
-    padding: 10px;
-    cursor: pointer;
+  background-color: var(--cor01);
+  color: white;
+  display: block;
+  text-align: center;
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
 }
 
 i#burguer:hover {
-    transition: 0.3s;
-    background-color: var(--cor00);
-    color: black;
+  background-color: var(--cor00);
+  color: black;
 }
 
+/* Menu responsivo */
 menu {
-    display: none;
+  display: none;
+  background-color: var(--cor02);
 }
 
 menu > ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 menu > ul > li > a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    text-align: center;
-    background-color: var(--cor02);
-    color: white;
-    border-top: 2px solid var(--cor01);
+  display: block;
+  padding: 1rem;
+  text-decoration: none;
+  text-align: center;
+  background-color: var(--cor02);
+  color: white;
+  border-top: 2px solid var(--cor01);
+  transition: all 0.3s ease;
 }
 
 menu > ul > li > a:hover {
-    background-color: var(--cor00);
+  background-color: var(--cor00);
+  padding-left: 1.5rem;
 }
 
+/* Conteúdo principal otimizado */
 main {
-  width: 90vw;
-  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  padding: 1.5rem;
   background-color: var(--cor04);
-  margin: auto;
-  margin-top: 10px;
-  padding: 10px
+  margin: 0 auto;
+  margin-top: 1rem;
+  border-radius: var(--borda-arredondada);
 }
 
 section h2 {
   color: var(--cor02);
-  margin-top: 2rem;
+  margin: 1.5rem 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-
+/* Footer melhorado */
 footer {
   text-align: center;
-  padding: 1rem;
+  padding: 1.5rem;
   background-color: var(--cor02);
   color: white;
-  font-size: 0.8em;
+  font-size: 0.9rem;
+  margin-top: 2rem;
 }
 
 footer a {
   text-decoration: none;
-  cursor: help;
   color: white;
+  padding: 0.3rem 0.5rem;
+  border-radius: var(--borda-arredondada);
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
 footer a:hover {
-  transition: 0.2s;
   background-color: var(--cor01);
-  padding: 5px;
-  border-radius: 5px;
   text-decoration: underline;
-  color: white;
+}
+
+/* Media Queries para dispositivos móveis */
+@media (max-width: 768px) {
+  body, html {
+    font-size: 16px; /* Tamanho de fonte padrão para mobile */
+  }
+  
+  main {
+    padding: 1rem;
+    width: 95%;
+    margin-top: 0.5rem;
+  }
+  
+  header > h1 {
+    font-size: 1.8rem;
+    padding: 0.3rem;
+  }
+  
+  section h2 {
+    font-size: 1.3rem;
+    margin: 1rem 0;
+  }
+  
+  menu > ul > li > a {
+    padding: 0.8rem;
+  }
+}
+
+/* Melhorias para telas muito pequenas */
+@media (max-width: 480px) {
+  header > h1 {
+    font-size: 1.5rem;
+  }
+  
+  footer {
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
 }
