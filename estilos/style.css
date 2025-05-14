@@ -17,24 +17,25 @@
 
 
 body, html {
-  background-color: var(--cor03);
+  background-color: var(--cor04);
   color: var(--texto);
-  line-height: 1.6;
+  font-size: 1.2em;
 }
 
 header {
   background-color: var(--cor02);
   color: white;
-  padding: 2rem 1rem;
   text-align: center;
 }
 
-header h1 {
+header > h1 {
   color: var(--cor00);
   font-size: 2.5rem;
+  padding: 10px;
+  text-align: center;
 }
 
-header p {
+header > p {
   margin-top: 1rem;
   padding: 10px;
   color: var(--cor04);
@@ -78,8 +79,12 @@ menu > ul > li > a:hover {
 }
 
 main {
+  width: 90vw;
   padding: 2rem;
   background-color: var(--cor04);
+  margin: auto;
+  margin-top: 10px;
+  padding: 10px
 }
 
 section h2 {
