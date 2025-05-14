@@ -1,0 +1,112 @@
+@charset "UTF8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --cor00: #00a1ff;
+  --cor01: #e65ce6;
+  --cor02: #592e83;
+  --cor03: #d8d2e1;
+  --cor04: #e5c1bd;
+  --texto: #222;
+}
+
+
+body, html {
+  background-color: var(--cor03);
+  color: var(--texto);
+  line-height: 1.6;
+}
+
+header {
+  background-color: var(--cor02);
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+header h1 {
+  color: var(--cor00);
+  font-size: 2.5rem;
+}
+
+header p {
+  margin-top: 1rem;
+  padding: 10px;
+  color: var(--cor04);
+}
+
+i#burguer {
+    background-color: var(--cor01);
+    color: white;
+    display: block;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+i#burguer:hover {
+    transition: 0.3s;
+    background-color: var(--cor00);
+    color: black;
+}
+
+menu {
+    display: none;
+}
+
+menu > ul {
+    list-style-type: none;
+}
+
+menu > ul > li > a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    text-align: center;
+    background-color: var(--cor02);
+    color: white;
+    border-top: 2px solid var(--cor01);
+}
+
+menu > ul > li > a:hover {
+    background-color: var(--cor00);
+}
+
+main {
+  padding: 2rem;
+  background-color: var(--cor04);
+}
+
+section h2 {
+  color: var(--cor02);
+  margin-top: 2rem;
+}
+
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--cor02);
+  color: white;
+  font-size: 0.8em;
+}
+
+footer a {
+  text-decoration: none;
+  cursor: help;
+  color: white;
+}
+
+footer a:hover {
+  transition: 0.2s;
+  background-color: var(--cor01);
+  padding: 5px;
+  border-radius: 5px;
+  text-decoration: underline;
+  color: white;
+}
