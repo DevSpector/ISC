@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../estilos/user.css">
+</head>
+<body class="tema-claro">
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="avatar" id="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-info">
+                <h1 id="username">Usuário</h1>
+                <p id="user-bio">Sem biografia</p>
+            </div>
+        </div>
+
+        <div class="edit-form">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="Seu nome">
+            </div>
+            
+            <div class="form-group">
+                <label for="bio">Biografia</label>
+                <textarea id="bio" placeholder="Conte um pouco sobre você"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Foto de Perfil</label>
+                <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+                <button class="btn" onclick="document.getElementById('avatar-upload').click()">
+                    <i class="fas fa-upload"></i> Escolher Imagem
+                </button>
+            </div>
+            
+            <div class="form-group">
+                <label>Tema do Perfil</label>
+                <div class="theme-selector">
+                    <div class="theme-option selected" data-theme="claro" style="background: #f5f5f7;"></div>
+                    <div class="theme-option" data-theme="escuro" style="background: #222;"></div>
+                    <div class="theme-option" data-theme="azul" style="background: #e5f2ff;"></div>
+                </div>
+            </div>
+            
+            <button class="btn" id="save-btn">
+                <i class="fas fa-save"></i> Salvar Alterações
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Pega o usuário da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('user');
+        
+        // Carrega os dados do usuário
+        function loadUserData() {
+            const userData = JSON.parse(localStorage.getItem("usuario"));
+            
+            if (userData && userData.perfil) {
+                document.getElementById('username').textContent = userData.perfil.nome || userData.login;
+                document.getElementById('user-bio').textContent = userData.perfil.bio || "Sem biografia";
+                document.getElementById('nome').value = userData.perfil.nome || userData.login;
+                document.getElementById('bio').value = userData.perfil.bio || "";
+                
+                if (userData.perfil.avatar) {
+                    const avatar = document.getElementById('user-avatar');
+                    avatar.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = userData.perfil.avatar;
+                    avatar.appendChild(img);
+                }
+                
+                if (userData.perfil.tema) {
+                    document.body.className = `tema-${userData.perfil.tema}`;
+                    document.querySelector(`.theme-option[data-theme="${userData.perfil.tema}"]`).classList.add('selected');
+                }
+            } else {
+                document.getElementById('username').textContent = username;
+                document.getElementById('nome').value = username;
+            }
+        }
+        
+        // Inicializa a página
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!username) {
+                window.location.href = './index.html';
+                return;
+            }
+            
+            loadUserData();
+            
+            // Configura o upload de avatar
+            document.getElementById('avatar-upload').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const avatar = document.getElementById('user-avatar');
+                        avatar.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = event.target.result;
+                        avatar.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Configura os temas
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.theme-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    const theme = this.getAttribute('data-theme');
+                    document.body.className = `tema-${theme}`;
+                });
+            });
+            
+            // Configura o botão de salvar
+            document.getElementById('save-btn').addEventListener('click', function() {
+                const userData = JSON.parse(localStorage.getItem("usuario")) || {};
+                
+                userData.perfil = {
+                    nome: document.getElementById('nome').value,
+                    bio: document.getElementById('bio').value,
+                    tema: document.querySelector('.theme-option.selected').getAttribute('data-theme')
+                };
+                
+                // Salva a imagem do avatar se existir
+                const avatarImg = document.querySelector('#user-avatar img');
+                if (avatarImg) {
+                    userData.perfil.avatar = avatarImg.src;
+                }
+                
+                localStorage.setItem("usuario", JSON.stringify(userData));
+                alert('Perfil atualizado com sucesso!');
+                loadUserData();
+            });
+        });
+    </script>
+</body>
+</html>
