@@ -42,8 +42,6 @@ $("#entrar").addEventListener("click", (ev) => {
   window.location.href = `./logado.html?user=${encodeURIComponent(usuario.login)}`;
 });
 
-const $ = (elemento) => document.querySelector(elemento);
-
 $("#entrar").addEventListener("click", (ev) => {
   ev.preventDefault();
   
