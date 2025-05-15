@@ -55,19 +55,30 @@
 </head>
 <body>
     <header>
-      <h1>Testando</h1>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque facilis quod voluptates alias nemo, minima aliquid excepturi, repudiandae nam veniam magni aperiam nostrum sit officia quas quia, labore est iusto?</p>
-      <i id="burguer" class="material-icons" onclick="clickMenu()">menu</i>
+      <div class="header-top">
+        <div class="header-title">
+          <h1>Testando</h1>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit...</p>
+        </div>
+        <i id="burguer" class="material-icons" onclick="clickMenu()">menu</i>
+        <div class="user-icon-wrapper">
+          <a href="login-cadastro/login-cadastro.html" id="user-icon-link">
+            <div id="user-icon">
+              <i class="material-icons">account_circle</i>
+            </div>
+          </a>
+        </div>
+      </div>
       <menu id="itens">
-      <ul class="menu">
-        <li><a href="#">Home</a></li>
-        <li><a href="news/news.html">News</a></li>
-        <li><a href="games/games.html">Games</a></li>
-        <li><a href="ia/ia.html">IA</a></li>
-        <li><a href="chat/chat.html">Chat</a></li>
-        <li><a href="login-cadastro/login-cadastro.html">Login | Cadastro</a></li>
-      </ul>
-    </menu>
+        <ul class="menu">
+          <li><a href="#">Home</a></li>
+          <li><a href="news/news.html">News</a></li>
+          <li><a href="games/games.html">Games</a></li>
+          <li><a href="ia/ia.html">IA</a></li>
+          <li><a href="chat/chat.html">Chat</a></li>
+          <li><a href="login-cadastro/login-cadastro.html">Login | Cadastro</a></li>
+        </ul>
+      </menu>
     </header>
   <main>
     <section id="main">
@@ -126,5 +137,41 @@
   </footer>
   <script src="script/script.js"></script>
   <script src="animation/animation.js"></script>
+  <script>
+  // Verifica se o usuário está logado
+  function checkLoggedIn() {
+    const userData = localStorage.getItem("usuario");
+    const userIconLink = document.getElementById("user-icon-link");
+    const userIcon = document.getElementById("user-icon");
+    
+    if (userData) {
+      const parsedData = JSON.parse(userData);
+      
+      // Adiciona classe para estilo de logado
+      userIcon.classList.add("user-logged");
+      
+      // Muda o link para a página de perfil
+      userIconLink.href = "perfil.html";
+      
+      // Se tiver avatar, substitui o ícone
+      if (parsedData.perfil && parsedData.perfil.avatar) {
+        userIcon.innerHTML = `<img src="${parsedData.perfil.avatar}" alt="Avatar">`;
+      } else if (parsedData.login) {
+        // Mostra a primeira letra do nome
+        userIcon.innerHTML = `<span>${parsedData.login.charAt(0).toUpperCase()}</span>`;
+
+        // Atualiza o texto do menu se estiver logado
+        const loginMenuItem = document.getElementById("login-menu-item");
+        if (localStorage.getItem("usuario")) {
+          loginMenuItem.textContent = "Meu Perfil";
+          loginMenuItem.href = "perfil.html";
+        }
+      }
+    }
+  }
+  
+  // Executa quando a página carrega
+  document.addEventListener("DOMContentLoaded", checkLoggedIn);
+  </script>
 </body>
 </html>
