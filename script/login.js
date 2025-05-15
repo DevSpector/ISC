@@ -66,7 +66,5 @@ $("#entrar").addEventListener("click", (ev) => {
     
     localStorage.setItem("usuario", JSON.stringify(userData));
     window.location.href = "./logado.html?user=" + encodeURIComponent(login);
-  } else {
-    alert("Use:\nLogin: teste\nSenha: teste123");
   }
 });
