@@ -9,6 +9,18 @@ $("#cadastro").addEventListener("click", (ev) => {
   const senha = $("#senha").value;
   const confirmaSenha = $("#confirma-senha").value;
 
+  // Senha
+    function isPasswordStrong(password) {
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return regex.test(password);
+  }
+
+  // No cadastro
+  if (!isPasswordStrong(senha)) {
+      alert("A senha deve ter:\n- 8+ caracteres\n- Letras maiúsculas e minúsculas\n- Números\n- Símbolos especiais");
+      return;
+  }
+
   // Validações
   if (senha !== confirmaSenha) {
     alert("As senhas não coincidem!");

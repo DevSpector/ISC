@@ -6,48 +6,11 @@
     <title>Meu Perfil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- Remova o link duplicado para media-query.css -->
     <link rel="stylesheet" href="../estilos/user.css">
     <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        
-        #settings {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            cursor: pointer;
-            color: black;
-            font-size: 28px;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        #settings:hover {
-            color: darkblue;
-            transform: rotate(30deg);
-        }
-
-        .profile-config {
-            display: none;
-            position: absolute;
-            top: 70px;
-            right: 20px;
-            background-color: white;
-            border-radius: var(--borda-arredondada);
-            box-shadow: var(--sombra);
-            padding: 20px;
-            width: 90%;
-            max-width: 400px;
-            z-index: 10;
-        }
-
-        @media (max-width: 768px) {
-            .profile-config {
-                width: calc(100% - 40px);
-                right: 20px;
-                left: 20px;
-            }
         }
     </style>
 </head>
@@ -102,29 +65,35 @@
     </div>
 
     <script src="../script/user.js"></script>
-    <script>
-        // Alternar visibilidade do painel de configurações
-        function toggleConfig() {
-            const configPanel = document.getElementById('config-panel');
-            if (configPanel.style.display === 'block') {
-                configPanel.style.display = 'none';
-            } else {
-                configPanel.style.display = 'block';
-            }
+<script>
+    // Verifica se o usuário está logado ao carregar
+    document.addEventListener("DOMContentLoaded", function() {
+        const userData = JSON.parse(localStorage.getItem("usuario"));
+        if (!userData) {
+            window.location.href = "../login-cadastro/login.html";
+            return;
         }
+        
+        // Carrega dados do usuário
+        loadUserData();
+    });
 
-        // Fechar ao clicar fora
-        document.addEventListener('click', function(event) {
-            const configPanel = document.getElementById('config-panel');
-            const settingsIcon = document.getElementById('settings');
-            
-            if (!configPanel.contains(event.target) && event.target !== settingsIcon) {
-                configPanel.style.display = 'none';
-            }
-        });
+    // Alternar visibilidade do painel de configurações
+    function toggleConfig() {
+        const configPanel = document.getElementById('config-panel');
+        configPanel.style.display = configPanel.style.display === 'block' ? 'none' : 'block';
+    }
 
-        // Restante do seu código JavaScript permanece o mesmo...
-        // [Seu código existente de loadUserData, upload de avatar, etc]
-    </script>
+    // Fechar ao clicar fora
+    document.addEventListener('click', function(event) {
+        const configPanel = document.getElementById('config-panel');
+        const settingsIcon = document.getElementById('settings');
+        
+        if (!configPanel.contains(event.target) && event.target !== settingsIcon && 
+            !event.target.closest('#config-panel')) {
+            configPanel.style.display = 'none';
+        }
+    });
+</script>
 </body>
 </html>
