@@ -3,55 +3,27 @@ const $ = (elemento) => document.querySelector(elemento);
 $("#cadastro").addEventListener("click", (ev) => {
   ev.preventDefault();
 
-  const nome = $("#nome").value;
-  const email = $("#email").value;
-  const login = $("#login").value;
-  const senha = $("#senha").value;
-  const confirmaSenha = $("#confirma-senha").value;
-
-  // Senha
-    function isPasswordStrong(password) {
-      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-      return regex.test(password);
-  }
-
-  // No cadastro
-  if (!isPasswordStrong(senha)) {
-      alert("A senha deve ter:\n- 8+ caracteres\n- Letras maiúsculas e minúsculas\n- Números\n- Símbolos especiais");
-      return;
-  }
-
-  // Validações
-  if (senha !== confirmaSenha) {
+  // Validação simplificada
+  if ($("#senha").value !== $("#confirma-senha").value) {
     alert("As senhas não coincidem!");
     return;
   }
 
-  if (!nome || !email || !login || !senha) {
-    alert("Preencha todos os campos!");
+  if ($("#senha").value.length < 4) {
+    alert("A senha precisa ter no mínimo 4 caracteres");
     return;
   }
 
-  // Verifica se já existe usuário cadastrado
-  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-  if (usuarios.some(u => u.login === login)) {
-    alert("Este login já está em uso!");
-    return;
-  }
-
-  // Cria novo usuário
-  const novoUsuario = {
-    nome,
-    email,
-    login,
-    senha,
-    perfil: null // Será criado no primeiro login
+  const usuario = {
+    login: $("#login").value,
+    senha: $("#senha").value,
+    perfil: {
+      nome: $("#nome").value,
+      tema: "claro"
+    }
   };
 
-  // Adiciona ao array de usuários
-  usuarios.push(novoUsuario);
-  localStorage.setItem("usuarios", JSON.stringify(usuarios));
-  
-  alert("Cadastro realizado com sucesso!");
+  localStorage.setItem("usuario", JSON.stringify(usuario));
+  alert("Cadastro realizado!\nVocê será redirecionado para login.");
   window.location.href = "./login.html";
 });
