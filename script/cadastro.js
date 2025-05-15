@@ -9,36 +9,37 @@ $("#cadastro").addEventListener("click", (ev) => {
   const senha = $("#senha").value;
   const confirmaSenha = $("#confirma-senha").value;
 
-  const senhaConfirmada = senha === confirmaSenha;
-
-  if (!senhaConfirmada) {
-    alert("Sua confirmação de senha não confere.\nPor favor verifique.");
+  // Validações
+  if (senha !== confirmaSenha) {
+    alert("As senhas não coincidem!");
     return;
   }
 
-  const tudoPreenchido =
-    nome.length !== 0 &&
-    email.length !== 0 &&
-    login.length !== 0 &&
-    senhaConfirmada.length !== 0 &&
-    senha.length !== 0;
-
-  if (tudoPreenchido === false) {
-    alert("Preencha todos os campos antes de enviar.");
+  if (!nome || !email || !login || !senha) {
+    alert("Preencha todos os campos!");
     return;
   }
 
-  const usuarioCadastrado = {
-    email,
+  // Verifica se já existe usuário cadastrado
+  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+  if (usuarios.some(u => u.login === login)) {
+    alert("Este login já está em uso!");
+    return;
+  }
+
+  // Cria novo usuário
+  const novoUsuario = {
     nome,
+    email,
     login,
     senha,
-    confirmaSenha,
+    perfil: null // Será criado no primeiro login
   };
 
-  const string = JSON.stringify(usuarioCadastrado);
-  localStorage.setItem("usuario", string);
-
+  // Adiciona ao array de usuários
+  usuarios.push(novoUsuario);
+  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+  
   alert("Cadastro realizado com sucesso!");
   window.location.href = "./login.html";
 });
