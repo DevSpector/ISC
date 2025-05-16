@@ -32,5 +32,20 @@
       <a href="./login.html">Ir para a página de Login</a>
     </form>
     <script src="../script/cadastro.js"></script>
+    <script src="../script/auth.js"></script>
+    <script>
+        document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            cadastrarUsuario(
+                document.getElementById('nome').value,
+                document.getElementById('login').value,
+                document.getElementById('senha').value
+            );
+            
+            alert('Cadastro realizado!');
+            window.location.href = 'login.html';
+        });
+    </script>
   </body>
 </html>

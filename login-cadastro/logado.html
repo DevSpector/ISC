@@ -67,6 +67,12 @@
 
     <script src="../script/user.js"></script>
 <script>
+    const usuario = JSON.parse(localStorage.getItem('usuarioTeste'));
+
+    if(!usuario) {
+        window.location.href = 'login.html'; // Redireciona se não estiver logado
+    }
+
     // Verifica se o usuário está logado ao carregar
     document.addEventListener("DOMContentLoaded", function() {
         const userData = JSON.parse(localStorage.getItem("usuario"));
