@@ -240,13 +240,13 @@ textarea:focus {
 
 /* Rodapé */
 footer {
+    display: inline;
     background-color: var(--cor05);
     color: var(--cor-texto-claro);
     text-align: center;
     font-size: 0.8em;
     padding: 1rem;
     width: 100%;
-    margin-top: auto;
 }
 
 footer a {
