@@ -9,15 +9,10 @@ Desktop: 992px até 1200px
 Grandes telas: acima de 1200px
 */
 
-@charset "UTF-8";
-
-/* ======================
-   Estratégia Mobile First
-   ====================== */
-
-/* Estilos base (para mobile) */
+/* Menu mobile padrão */
 i#burguer {
     display: block;
+    cursor: pointer;
 }
 
 menu {
@@ -28,17 +23,18 @@ main {
     width: 100%;
     max-width: 100%;
     padding: 0 15px;
+    margin: 0 auto;
 }
 
 /* ======================
    Media Queries Aprimorados
    ====================== */
 
-/* Dispositivos móveis grandes / Tablets pequenos (600px+) */
+/* 600px+ - Dispositivos móveis grandes/Tablets pequenos */
 @media screen and (min-width: 600px) {
     main {
         width: 90%;
-        margin: 0 auto;
+        padding: 0 20px;
     }
     
     menu > ul > li > a {
@@ -46,12 +42,14 @@ main {
     }
 }
 
-/* Tablets (768px+) */
+/* 768px+ - Tablets */
 @media screen and (min-width: 768px) {
+    /* Esconder ícone do menu hamburguer */
     i#burguer {
         display: none;
     }
 
+    /* Mostrar menu horizontal */
     menu {
         display: block;
         text-align: center;
@@ -66,20 +64,16 @@ main {
         border-top: none;
         border-bottom: 2px solid var(--cor01);
         transition: all 0.3s ease;
-    }
-
-    menu > ul > li > a:hover {
-        border-bottom-color: var(--cor00);
-        transform: translateY(-3px);
+        padding: 15px 10px;
     }
 
     main {
-        width: 750px; /* 768px - padding */
+        width: 750px; /* 768px - margens */
         padding: 0;
     }
 }
 
-/* Desktop pequeno (992px+) */
+/* 992px+ - Desktop pequeno */
 @media screen and (min-width: 992px) {
     main {
         width: 970px;
@@ -95,7 +89,7 @@ main {
     }
 }
 
-/* Desktop grande (1200px+) */
+/* 1200px+ - Desktop grande */
 @media screen and (min-width: 1200px) {
     main {
         width: 1170px;
@@ -110,7 +104,7 @@ main {
     }
 }
 
-/* Telas muito grandes (1400px+) */
+/* 1400px+ - Telas muito grandes */
 @media screen and (min-width: 1400px) {
     main {
         width: 1370px;
@@ -138,6 +132,7 @@ main {
     menu > ul > li > a:hover {
         background-color: var(--cor00);
         color: black;
+        transform: translateY(-3px);
     }
 }
 
@@ -145,5 +140,6 @@ main {
 @media 
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-resolution: 192dpi) {
-    /* Estilos específicos para telas Retina */
+    /* Adicione estilos específicos para telas Retina se necessário */
+    /* Exemplo: imagens em resolução maior */
 }

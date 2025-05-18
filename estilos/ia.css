@@ -39,27 +39,40 @@ body {
     line-height: 1.5;
 }
 
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    position: relative;
+}
+
+.title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#typing-text {
+    font-size: clamp(2em, 8vw, 3.5em);
+    color: white;
+    font-weight: bold;
+    line-height: 1;
+}
+
 /* Cabeçalho e Animação de Digitação */
 #blinking-cursor {
     font-size: clamp(2em, 8vw, 3.5em);
     opacity: 0;
     animation: blink 0.7s infinite;
-    vertical-align: middle; /* Adicionado para alinhamento vertical */
-    display: inline-block; /* Garante que fique na mesma linha */
-    margin-left: 2px; /* Espaço entre texto e cursor */
+    line-height: 1;
+    position: relative;
+    top: -0.1em; /* Ajuste fino de posicionamento vertical */
 }
 
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
-}
-
-#typing-text {
-    display: inline-block;
-    font-size: clamp(2em, 8vw, 3.5em);
-    color: white;
-    font-weight: bold;
-    vertical-align: middle; /* Adicionado para alinhamento vertical */
 }
 
 /* Layout Principal */
