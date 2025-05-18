@@ -38,12 +38,12 @@
             <ul class="chatbox">
                 <li class="chat incoming">
                     <span class="material-icons">smart_toy</span>
-                    <p>Hi there <br>How can I help you today?</p>
+                    <p>Olá <br>Como eu posso te ajudar?</p>
                 </li>
             </ul>
             <div class="chat-input">
-                <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
-                <span><button id="send-btn" class="material-symbols-rounded">send</button></span>
+                <textarea placeholder="Insira uma menssagem..." spellcheck="false" required></textarea>
+                <span><button id="send-btn" class="material-symbols-rounded">Enviar</button></span>
             </div>
         </main>
         
@@ -79,15 +79,17 @@
         let userMessage = null;
         const inputInitHeight = chatInput.scrollHeight;
 
-        const API_KEY = "AIzaSyACm1vgMXA8CR5b92o79W-bUoEMjQi4Aa4"; // Replace with your actual API key
+        const API_KEY = "AIzaSyACm1vgMXA8CR5b92o79W-bUoEMjQi4Aa4"; 
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
         const createChatLi = (message, className) => {
             const chatLi = document.createElement("li");
-            chatLi.classList.add("chat", `${className}`);
+            chatLi.classList.add("chat", className);
+            
             let chatContent = className === "outgoing" 
                 ? `<p></p>` 
                 : `<span class="material-icons">smart_toy</span><p></p>`;
+            
             chatLi.innerHTML = chatContent;
             chatLi.querySelector("p").textContent = message;
             return chatLi;
@@ -109,21 +111,20 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error(`API request failed with status ${response.status}`);
+                    throw new Error(`Erro na API: ${response.status}`);
                 }
 
                 const data = await response.json();
                 
-                // More robust response handling
-                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
+                if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
                     messageElement.textContent = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1');
                 } else {
-                    throw new Error("Unexpected API response structure");
+                    throw new Error("Resposta da API em formato inesperado");
                 }
             } catch (error) {
-                console.error("Error:", error);
+                console.error("Erro:", error);
                 messageElement.classList.add("error");
-                messageElement.textContent = "Oops! Something went wrong. Please try again.";
+                messageElement.textContent = "Oops! Ocorreu um erro. Por favor, tente novamente.";
             } finally {
                 chatbox.scrollTo(0, chatbox.scrollHeight);
             }
@@ -140,7 +141,7 @@
             chatbox.scrollTo(0, chatbox.scrollHeight);
             
             setTimeout(() => {
-                const incomingChatLi = createChatLi("Thinking...", "incoming");
+                const incomingChatLi = createChatLi("Digitando...", "incoming");
                 chatbox.appendChild(incomingChatLi);
                 chatbox.scrollTo(0, chatbox.scrollHeight);
                 generateResponse(incomingChatLi);
